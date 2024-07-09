@@ -31,22 +31,23 @@ jobs:
           echo "${{ secrets.EC2_KEY }}" | base64 --decode > ec2-private-key.pem
           chmod 600 ec2-private-key.pem
 
-      - name: SSH into EC2 instance
+      - name: SSH into EC2 instance and deploy
         run: |
-          ssh -o StrictHostKeyChecking=no -i ./ec2-private-key.pem ec2-user@${EC2_HOST}
+          ssh -o StrictHostKeyChecking=no -i ./ec2-private-key.pem ec2-user@${EC2_HOST} << 'EOF'
+          cd /home/ec2-user/app
 
-      - name: Build Docker image
-        run: |
-          docker build -t task-frontend .
+          # Pull latest code
+          git pull origin main
 
-      - name: Stop previous Docker container (if running)
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ./ec2-private-key.pem ec2-user@${EC2_HOST} "docker stop task-frontend || true"
+          # Build Docker image
+          sudo docker build -t task-frontend .
 
-      - name: Remove previous Docker container (if exists)
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ./ec2-private-key.pem ec2-user@${EC2_HOST} "docker rm task-frontend || true"
+          # Stop previous Docker container (if running)
+          sudo docker stop task-frontend || true
 
-      - name: Run new Docker container
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ./ec2-private-key.pem ec2-user@${EC2_HOST} "sudo docker run -d -p 3000:3000 --name task-frontend --restart unless-stopped task-frontend"
+          # Remove previous Docker container (if exists)
+          sudo docker rm task-frontend || true
+
+          # Run new Docker container
+          sudo docker run -d -p 3000:3000 --name task-frontend --restart unless-stopped task-frontend
+          EOF
