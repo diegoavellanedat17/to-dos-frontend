@@ -44,13 +44,13 @@ const Register: React.FC = () => {
   };
 
   return (
-    <Container>
+    <Container className="mt-3">
       <Modal show={showModal} onHide={handleModalClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Registration Successful</Modal.Title>
+          <Modal.Title>Registro exitoso</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Your account has been created successfully. Please log in to continue.
+          La cuenta ha sido creada, por favor inicia sesión
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleModalClose}>
@@ -61,38 +61,38 @@ const Register: React.FC = () => {
 
       <Row className="justify-content-md-center">
         <Col md="6">
-          <h1 className="text-center">Register</h1>
+          <h1 className="text-center">Registro</h1>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="username">
-              <Form.Label>Username</Form.Label>
+              <Form.Label>Nombre de Usuario</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter username"
+                placeholder="Ingresa username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </Form.Group>
             <Form.Group controlId="email" className="mt-3">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Enter email"
+                placeholder="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Form.Group>
             <Form.Group controlId="password" className="mt-3">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>Contraseña</Form.Label>
               <Form.Control
                 type="password"
-                placeholder="Password"
+                placeholder="contraseña"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Group>
             <Button variant="primary" type="submit" className="mt-3">
-              Register
+              Registrarse
             </Button>
           </Form>
         </Col>
