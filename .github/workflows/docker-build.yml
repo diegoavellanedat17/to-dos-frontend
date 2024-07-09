@@ -5,26 +5,22 @@ on:
     branches:
       - main
 
+env:
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Debug Docker Hub Secrets
+      - name: Check environment variables
         run: |
           echo "DOCKER_USERNAME: $DOCKER_USERNAME"
           echo "DOCKER_PASSWORD length: ${#DOCKER_PASSWORD}"
           echo "First 4 characters of DOCKER_PASSWORD: ${DOCKER_PASSWORD:0:4}"
-
-      - name: Build and push Docker image
-        run: |
-          docker build -t your-image-name .
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker tag your-image-name ${{ secrets.DOCKER_USERNAME }}/your-image-name
-          docker push ${{ secrets.DOCKER_USERNAME }}/your-image-name
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Login to Docker Hub
+        run: echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+      - name: Build Docker image
+        run: docker build -t your-image-name .
+      - name: Push Docker image
+        run: docker push your-image-name
