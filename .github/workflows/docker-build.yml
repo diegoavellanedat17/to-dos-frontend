@@ -9,6 +9,7 @@ env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   EC2_HOST: ${{ secrets.EC2_HOST }}
+  EC2_KEY: ${{ secrets.EC2_KEY }}
 
 jobs:
   deploy:
@@ -23,3 +24,4 @@ jobs:
           echo "DOCKER_USERNAME=${DOCKER_USERNAME}"
           echo "DOCKER_PASSWORD=${DOCKER_PASSWORD}"
           echo "EC2_HOST=${EC2_HOST}"
+          echo "EC2_KEY=${EC2_KEY}"
