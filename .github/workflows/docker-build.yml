@@ -34,3 +34,19 @@ jobs:
       - name: SSH into EC2 instance
         run: |
           ssh -o StrictHostKeyChecking=no -i ./ec2-private-key.pem ec2-user@${EC2_HOST}
+
+      - name: Build Docker image
+        run: |
+          docker build -t task-frontend .
+
+      - name: Stop previous Docker container (if running)
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ./ec2-private-key.pem ec2-user@${EC2_HOST} "docker stop task-frontend || true"
+
+      - name: Remove previous Docker container (if exists)
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ./ec2-private-key.pem ec2-user@${EC2_HOST} "docker rm task-frontend || true"
+
+      - name: Run new Docker container
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ./ec2-private-key.pem ec2-user@${EC2_HOST} "sudo docker run -d -p 3000:3000 --name task-frontend --restart unless-stopped task-frontend"
