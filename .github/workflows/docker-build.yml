@@ -12,7 +12,7 @@ env:
   EC2_KEY: ${{ secrets.EC2_KEY }}
 
 jobs:
-  deploy-backend:
+  deploy-frontend:
     runs-on: ubuntu-latest
 
     steps:
@@ -34,20 +34,20 @@ jobs:
       - name: SSH into EC2 instance and deploy
         run: |
           ssh -o StrictHostKeyChecking=no -i ./ec2-private-key.pem ec2-user@${EC2_HOST} << 'EOF'
-          cd /home/ec2-user/fastapi-todos
+          cd /home/ec2-user/to-dos-frontend
 
           # Pull latest code
           git pull origin main
 
           # Build Docker image
-          sudo docker build -t fastapi-to-dos .
+          sudo docker build -t task-frontend .
 
           # Stop previous Docker container (if running)
-          sudo docker stop fastapi-to-dos || true
+          sudo docker stop task-frontend  || true
 
           # Remove previous Docker container (if exists)
-          sudo docker rm fastapi-to-dos || true
+          sudo docker rm task-frontend  || true
 
           # Run new Docker container
-          sudo docker run -d -p 3000:3000 --name fastapi-to-dos --restart unless-stopped fastapi-to-dos
+          sudo docker run -d -p 3000:3000 --name task-frontend  --restart unless-stopped task-frontend 
           EOF
