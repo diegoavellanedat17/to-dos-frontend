@@ -33,4 +33,4 @@ jobs:
 
       - name: SSH into EC2 instance
         run: |
-          ssh -i ./ec2-private-key.pem ec2-user@${EC2_HOST}
+          ssh -o StrictHostKeyChecking=no -i ./ec2-private-key.pem ec2-user@${EC2_HOST}
