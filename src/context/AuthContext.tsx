@@ -42,6 +42,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUsername(username);
     } catch (error) {
       console.error("Login failed:", error);
+      throw new Error("Login failed. Please check your credentials.");
     }
   };
 

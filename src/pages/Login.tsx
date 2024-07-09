@@ -23,15 +23,16 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!username || !email || !password) {
-      setError("All fields are required.");
+      setError("Todos los campos son requeridos");
       return;
     }
 
     try {
-      login(username, email, password);
+      await login(username, email, password);
       navigate("/dashboard");
     } catch (error) {
-      setError("Invalid email or password.");
+      setError("Email o contraseña invalido");
+      setTimeout(() => setError(""), 4000);
     }
   };
 
