@@ -1,46 +1,104 @@
-# Getting Started with Create React App
+# Aplicación de Tareas
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Esta es una aplicación de tareas desarrollada en React que permite a los usuarios crear y actualizar sus tareas de manera sencilla y eficiente.
 
-## Available Scripts
+## Características
 
-In the project directory, you can run:
+- **Autenticación**: Registro e inicio de sesión de usuarios.
+- **Gestión de Tareas**: Crear, actualizar, y eliminar tareas.
+- **Interfaz de Usuario Responsiva**: Adaptada para dispositivos móviles y de escritorio.
+- **Persistencia de Sesión**: Las sesiones de usuario se mantienen activas usando JWT.
 
-### `npm start`
+## Tecnologías Utilizadas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Frontend**: React, TypeScript, Bootstrap.
+- **Backend**: FastAPI (conectado al frontend a través de API REST).
+- **Base de Datos**: SQLite (en desarrollo local).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Requisitos
 
-### `npm test`
+- **Docker**: Necesario para ejecutar la aplicación en contenedores.
+- **Node.js**: Para el desarrollo y construcción del frontend.
+- **npm**: Para gestionar dependencias de Node.js.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Configuración Local
 
-### `npm run build`
+### Paso 1: Clonar el Repositorio
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+````sh
+git clone https://github.com/tu-usuario/to-dos-frontend.git
+cd to-dos-frontend# Aplicación de Tareas
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Esta es una aplicación de tareas desarrollada en React que permite a los usuarios crear y actualizar sus tareas de manera sencilla y eficiente.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Características
 
-### `npm run eject`
+- **Autenticación**: Registro e inicio de sesión de usuarios.
+- **Gestión de Tareas**: Crear, actualizar, y eliminar tareas.
+- **Interfaz de Usuario Responsiva**: Adaptada para dispositivos móviles y de escritorio.
+- **Persistencia de Sesión**: Las sesiones de usuario se mantienen activas usando JWT.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Tecnologías Utilizadas
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Frontend**: React, TypeScript, Bootstrap.
+- **Backend**: FastAPI (conectado al frontend a través de API REST).
+- **Base de Datos**: SQLite (en desarrollo local).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Requisitos
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **Docker**: Necesario para ejecutar la aplicación en contenedores.
+- **Node.js**: Para el desarrollo y construcción del frontend.
+- **npm**: Para gestionar dependencias de Node.js.
 
-## Learn More
+## Configuración Local
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Paso 1: Clonar el Repositorio
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```sh
+git clone https://github.com/tu-usuario/to-dos-frontend.git
+cd to-dos-frontend
+
+### Paso 2: Crear el Archivo .env
+
+Crear un archivo .env en el directorio raíz del proyecto y añadir la configuración necesaria. Un ejemplo de configuración puede ser:
+
+```sh
+REACT_APP_API_URL=http://localhost:8000
+
+
+### Paso 3: Construir y Ejecutar con Docker
+
+```sh
+docker build -t task-frontend .
+
+Ejecutar el contenedor Docker
+
+```sh
+docker run -d -p 3000:3000 --name react-app --restart unless-stopped react-app
+
+### Paso 4: Acceder a la Aplicación
+La aplicación estará disponible en http://localhost:3000.
+
+### Detener y Reiniciar el Contenedor
+Para detener el contenedor:
+
+
+```sh
+docker stop react-app
+
+Para reiniciar el contenedor:
+
+```sh
+docker start react-app
+
+Eliminación del Contenedor y la Imagen
+
+Para eliminar el contenedor:
+
+```sh
+docker rm -f react-app
+
+Para eliminar la imagen:
+```sh
+docker rmi react-app
+````
