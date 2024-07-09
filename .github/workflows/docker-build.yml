@@ -34,7 +34,7 @@ jobs:
       - name: SSH into EC2 instance and deploy
         run: |
           ssh -o StrictHostKeyChecking=no -i ./ec2-private-key.pem ec2-user@${EC2_HOST} << 'EOF'
-          cd /home/ec2-user/app
+          cd /home/ec2-user/to-dos-frontend
 
           # Pull latest code
           git pull origin main
