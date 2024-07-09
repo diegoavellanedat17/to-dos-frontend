@@ -271,6 +271,20 @@ const Dashboard: React.FC = () => {
                     />
                   </Form.Group>
 
+                  <Form.Group controlId="formCompleted" className="mb-3">
+                    <Form.Check
+                      type="checkbox"
+                      label="Completada"
+                      checked={editTask.completed}
+                      onChange={(e) =>
+                        setEditTask({
+                          ...editTask,
+                          completed: e.target.checked,
+                        })
+                      }
+                    />
+                  </Form.Group>
+
                   <Button variant="primary" type="submit">
                     Actualizar Tarea
                   </Button>
