@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"; // assuming you have an AuthContext
+import { useAuth } from "../context/AuthContext";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -13,10 +13,7 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log("hey ", isAuthenticated);
-      window.location.href = "/dashboard";
-
-      //navigate("/dashboard");
+      navigate("/dashboard");
     }
   }, [isAuthenticated, navigate]);
 
@@ -29,7 +26,6 @@ const Login: React.FC = () => {
 
     try {
       await login(username, email, password);
-      navigate("/dashboard");
     } catch (error) {
       setError("Email o contraseña invalido");
       setTimeout(() => setError(""), 4000);

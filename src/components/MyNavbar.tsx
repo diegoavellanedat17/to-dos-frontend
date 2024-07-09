@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useAuth } from "../context/AuthContext";
+import logo from "../assets/cuaderno.png";
 
 const MyNavbar: React.FC = () => {
   const { isAuthenticated, username, logout } = useAuth();
@@ -14,7 +15,16 @@ const MyNavbar: React.FC = () => {
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
         <LinkContainer to="/">
-          <Navbar.Brand>Mis Tareas</Navbar.Brand>
+          <Navbar.Brand>
+            <img
+              src={logo}
+              alt="Logo"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />{" "}
+            Mis Tareas
+          </Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

@@ -130,9 +130,9 @@ const Dashboard: React.FC = () => {
     <Container>
       <Row className="justify-content-md-center mt-5">
         <Col md="8">
-          <h1 className="text-center">Dashboard</h1>
+          <h1 className="text-center">Tablero</h1>
           {username && (
-            <h3 className="text-center mt-3">Welcome, {username}!</h3>
+            <h3 className="text-center mt-3">Bienvenid@, {username}!</h3>
           )}
 
           <Form onSubmit={handleCreateTask} className="mb-4 mt-4">
@@ -179,44 +179,46 @@ const Dashboard: React.FC = () => {
           </Form>
 
           <h4>Tareas</h4>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Título</th>
-                <th>Descripción</th>
-                <th>Fecha de vencimiento</th>
-                <th>Completada</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tasks.map((task) => (
-                <tr key={task.id}>
-                  <td>{task.id}</td>
-                  <td>{task.title}</td>
-                  <td>{task.description}</td>
-                  <td>{task.due_date}</td>
-                  <td>{task.completed ? "Sí" : "No"}</td>
-                  <td>
-                    <Button
-                      variant="warning"
-                      onClick={() => handleShow(task)}
-                      className="me-2"
-                    >
-                      Editar
-                    </Button>
-                    <Button
-                      variant="danger"
-                      onClick={() => handleDeleteTask(task.id)}
-                    >
-                      Eliminar
-                    </Button>
-                  </td>
+          <div className="table-responsive">
+            <Table striped bordered hover size="sm">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Título</th>
+                  <th>Descripción</th>
+                  <th>Fecha de vencimiento</th>
+                  <th>Completada</th>
+                  <th>Acciones</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {tasks.map((task) => (
+                  <tr key={task.id}>
+                    <td>{task.id}</td>
+                    <td>{task.title}</td>
+                    <td>{task.description}</td>
+                    <td>{task.due_date}</td>
+                    <td>{task.completed ? "Sí" : "No"}</td>
+                    <td>
+                      <Button
+                        variant="warning"
+                        onClick={() => handleShow(task)}
+                        className="me-2"
+                      >
+                        Editar
+                      </Button>
+                      <Button
+                        variant="danger"
+                        onClick={() => handleDeleteTask(task.id)}
+                      >
+                        Eliminar
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
 
           {editTask && (
             <Modal show={show} onHide={handleClose}>
