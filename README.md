@@ -74,7 +74,7 @@ docker build -t task-frontend .
 Ejecutar el contenedor Docker
 
 ```sh
-docker run -d -p 3000:3000 --name react-app --restart unless-stopped react-app
+docker run -d -p 3000:3000 --name task-frontend --restart unless-stopped task-frontend
 
 ### Paso 4: Acceder a la Aplicación
 La aplicación estará disponible en http://localhost:3000.
@@ -84,7 +84,7 @@ Para detener el contenedor:
 
 
 ```sh
-docker stop react-app
+docker stop task-frontend
 
 Para reiniciar el contenedor:
 
