@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import axios from "../api/axios";
-import { jwtDecode } from "jwt-decode";
+import { useAuth } from "../context/AuthContext"; // assuming you have an AuthContext
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -10,23 +9,16 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login, isAuthenticated } = useAuth();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    if (isAuthenticated) {
+      console.log("hey ", isAuthenticated);
+      window.location.href = "/dashboard";
 
-    if (token) {
-      try {
-        const decodedToken: any = jwtDecode(token);
-        const currentTime = Date.now() / 1000;
-
-        if (decodedToken.exp > currentTime) {
-          navigate("/dashboard");
-        }
-      } catch (error) {
-        console.error("Error decoding token:", error);
-      }
+      //navigate("/dashboard");
     }
-  }, [navigate]);
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,12 +28,7 @@ const Login: React.FC = () => {
     }
 
     try {
-      const response = await axios.post("/users/login", {
-        username,
-        email,
-        password,
-      });
-      localStorage.setItem("token", response.data.access_token);
+      login(username, email, password);
       navigate("/dashboard");
     } catch (error) {
       setError("Invalid email or password.");

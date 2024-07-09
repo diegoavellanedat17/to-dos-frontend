@@ -1,18 +1,13 @@
 import React from "react";
-import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-const MyNavbar: React.FC<{
-  isAuthenticated: boolean;
-  username: string | null;
-  onLogout: () => void;
-}> = ({ isAuthenticated, username, onLogout }) => {
-  const navigate = useNavigate();
+const MyNavbar: React.FC = () => {
+  const { isAuthenticated, username, logout } = useAuth();
 
   const handleLogout = () => {
-    onLogout();
-    navigate("/login");
+    logout();
   };
 
   return (
@@ -32,13 +27,14 @@ const MyNavbar: React.FC<{
           </Nav>
           <Nav>
             {isAuthenticated ? (
-              <>
-                <NavDropdown title={username || "User"} id="basic-nav-dropdown">
-                  <NavDropdown.Item onClick={handleLogout}>
-                    Cerrar Sesión
-                  </NavDropdown.Item>
-                </NavDropdown>
-              </>
+              <NavDropdown
+                title={username || "Usuario"}
+                id="basic-nav-dropdown"
+              >
+                <NavDropdown.Item onClick={handleLogout}>
+                  Cerrar Sesión
+                </NavDropdown.Item>
+              </NavDropdown>
             ) : (
               <>
                 <LinkContainer to="/login">

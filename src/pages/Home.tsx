@@ -1,9 +1,11 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"; // Assuming you have an AuthContext
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   const handleRegister = () => {
     navigate("/register");
@@ -24,12 +26,28 @@ const Home: React.FC = () => {
             eficiente.
           </p>
           <div className="text-center mt-5">
-            <Button variant="primary" className="me-3" onClick={handleRegister}>
-              Registrarse
-            </Button>
-            <Button variant="secondary" onClick={handleLogin}>
-              Iniciar Sesión
-            </Button>
+            {isAuthenticated ? (
+              <Button
+                variant="primary"
+                className="me-3"
+                onClick={() => navigate("/dashboard")}
+              >
+                Tablero
+              </Button>
+            ) : (
+              <>
+                <Button
+                  variant="primary"
+                  className="me-3"
+                  onClick={handleRegister}
+                >
+                  Registrarse
+                </Button>
+                <Button variant="secondary" onClick={handleLogin}>
+                  Iniciar Sesión
+                </Button>
+              </>
+            )}
           </div>
         </Col>
       </Row>

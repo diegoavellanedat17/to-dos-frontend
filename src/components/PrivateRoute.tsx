@@ -38,8 +38,6 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
     checkAuth();
   }, []);
 
-  console.log("is autheticated", isAuthenticated);
-
   return isAuthenticated ? <Component {...rest} /> : <Login />;
 };
 
