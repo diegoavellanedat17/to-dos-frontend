@@ -1,5 +1,7 @@
 # Aplicación de Tareas
 
+## Ingresa al siguiente link para ver la aplicaión web en funcionamiento 🚀 [Mis Tareas](http://54.152.5.128:3000/)
+
 Esta es una aplicación de tareas desarrollada en React que permite a los usuarios crear y actualizar sus tareas de manera sencilla y eficiente.
 
 ## Características
@@ -102,3 +104,9 @@ Para eliminar la imagen:
 ```sh
 docker rmi react-app
 ````
+
+### Los test
+
+```sh
+npm test
+```
