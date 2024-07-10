@@ -27,9 +27,10 @@ Esta es una aplicación de tareas desarrollada en React que permite a los usuari
 
 ### Paso 1: Clonar el Repositorio
 
-````sh
+```sh
 git clone https://github.com/tu-usuario/to-dos-frontend.git
 cd to-dos-frontend# Aplicación de Tareas
+```
 
 Esta es una aplicación de tareas desarrollada en React que permite a los usuarios crear y actualizar sus tareas de manera sencilla y eficiente.
 
@@ -59,6 +60,7 @@ Esta es una aplicación de tareas desarrollada en React que permite a los usuari
 ```sh
 git clone https://github.com/tu-usuario/to-dos-frontend.git
 cd to-dos-frontend
+```
 
 ### Paso 2: Crear el Archivo .env
 
@@ -66,17 +68,19 @@ Crear un archivo .env en el directorio raíz del proyecto y añadir la configura
 
 ```sh
 REACT_APP_API_URL=http://localhost:8000
-
+```
 
 ### Paso 3: Construir y Ejecutar con Docker
 
 ```sh
 docker build -t task-frontend .
+```
 
 Ejecutar el contenedor Docker
 
 ```sh
 docker run -d -p 3000:3000 --name task-frontend --restart unless-stopped task-frontend
+```
 
 ### Paso 4: Acceder a la Aplicación
 La aplicación estará disponible en http://localhost:3000.
@@ -87,11 +91,13 @@ Para detener el contenedor:
 
 ```sh
 docker stop task-frontend
+```
 
 Para reiniciar el contenedor:
 
 ```sh
 docker start react-app
+```
 
 Eliminación del Contenedor y la Imagen
 
@@ -99,13 +105,14 @@ Para eliminar el contenedor:
 
 ```sh
 docker rm -f react-app
+```
 
 Para eliminar la imagen:
 ```sh
 docker rmi react-app
-````
+```
 
-### Los test
+### El siguiente comando se debe correr para los TESTS
 
 ```sh
 npm test
