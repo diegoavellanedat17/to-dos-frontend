@@ -28,8 +28,10 @@ const Dashboard: React.FC = () => {
     due_date: "",
   });
   const [editTask, setEditTask] = useState<Task | null>(null);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [username, setUsername] = useState<string | null>(null);
-  const [show, setShow] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
 
@@ -96,7 +98,7 @@ const Dashboard: React.FC = () => {
         tasks.map((task) => (task.id === editTask.id ? response.data : task))
       );
       setEditTask(null);
-      setShow(false);
+      setShowEditModal(false);
     } catch (error) {
       console.error("Error updating task:", error);
     }
@@ -116,14 +118,24 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const handleShow = (task: Task) => {
+  const handleShowEditModal = (task: Task) => {
     setEditTask(task);
-    setShow(true);
+    setShowEditModal(true);
   };
 
-  const handleClose = () => {
+  const handleCloseEditModal = () => {
     setEditTask(null);
-    setShow(false);
+    setShowEditModal(false);
+  };
+
+  const handleShowDetailsModal = (task: Task) => {
+    setSelectedTask(task);
+    setShowDetailsModal(true);
+  };
+
+  const handleCloseDetailsModal = () => {
+    setSelectedTask(null);
+    setShowDetailsModal(false);
   };
 
   return (
@@ -201,12 +213,21 @@ const Dashboard: React.FC = () => {
                     <td>{task.completed ? "Sí" : "No"}</td>
                     <td>
                       <Button
+                        variant="info"
+                        onClick={() => handleShowDetailsModal(task)}
+                        className="mb-2"
+                      >
+                        Ver Detalles
+                      </Button>
+                      <br />
+                      <Button
                         variant="warning"
-                        onClick={() => handleShow(task)}
-                        className="me-2"
+                        onClick={() => handleShowEditModal(task)}
+                        className="mb-2"
                       >
                         Editar
                       </Button>
+                      <br />
                       <Button
                         variant="danger"
                         onClick={() => handleDeleteTask(task.id)}
@@ -220,8 +241,34 @@ const Dashboard: React.FC = () => {
             </Table>
           </div>
 
+          {selectedTask && (
+            <Modal show={showDetailsModal} onHide={handleCloseDetailsModal}>
+              <Modal.Header closeButton>
+                <Modal.Title>Detalles de la Tarea</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <p>
+                  <strong>ID:</strong> {selectedTask.id}
+                </p>
+                <p>
+                  <strong>Título:</strong> {selectedTask.title}
+                </p>
+                <p>
+                  <strong>Descripción:</strong> {selectedTask.description}
+                </p>
+                <p>
+                  <strong>Fecha de vencimiento:</strong> {selectedTask.due_date}
+                </p>
+                <p>
+                  <strong>Completada:</strong>{" "}
+                  {selectedTask.completed ? "Sí" : "No"}
+                </p>
+              </Modal.Body>
+            </Modal>
+          )}
+
           {editTask && (
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={showEditModal} onHide={handleCloseEditModal}>
               <Modal.Header closeButton>
                 <Modal.Title>Editar Tarea</Modal.Title>
               </Modal.Header>
@@ -268,11 +315,13 @@ const Dashboard: React.FC = () => {
                           : ""
                       }
                       onChange={(e) =>
-                        setEditTask({ ...editTask, due_date: e.target.value })
+                        setEditTask({
+                          ...editTask,
+                          due_date: e.target.value,
+                        })
                       }
                     />
                   </Form.Group>
-
                   <Form.Group controlId="formCompleted" className="mb-3">
                     <Form.Check
                       type="checkbox"
@@ -288,7 +337,7 @@ const Dashboard: React.FC = () => {
                   </Form.Group>
 
                   <Button variant="primary" type="submit">
-                    Actualizar Tarea
+                    Guardar Cambios
                   </Button>
                 </Form>
               </Modal.Body>
