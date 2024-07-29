@@ -17,7 +17,7 @@ jest.mock("jwt-decode", () => ({
 describe("AuthProvider", () => {
   it("sets isAuthenticated and username after successful login", async () => {
     (axios.post as jest.Mock).mockResolvedValueOnce({
-      data: { access_token: "mocked_token" },
+      data: { token: "mocked_token" },
     });
 
     const TestComponent: React.FC = () => {

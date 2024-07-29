@@ -37,7 +37,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         email,
         password,
       });
-      localStorage.setItem("token", response.data.access_token);
+      console.log("the reposne", response);
+      localStorage.setItem("token", response.data.token);
       setIsAuthenticated(true);
       setUsername(username);
     } catch (error) {
@@ -71,8 +72,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     }
   }, []);
-
-  console.log("AuthProvider isAuthenticated:", { isAuthenticated, username }); // Logging isAuthenticated value
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, username, login, logout }}>
