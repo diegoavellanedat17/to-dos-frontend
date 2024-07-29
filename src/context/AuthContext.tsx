@@ -32,7 +32,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (username: string, email: string, password: string) => {
     try {
-      const response = await axios.post("/users/login", {
+      const response = await axios.post("/api/auth/login", {
         username,
         email,
         password,
@@ -58,7 +58,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (token) {
       try {
         const decodedToken: any = jwtDecode(token);
-        console.log("decooded", username);
+
         const currentTime = Date.now() / 1000;
         if (decodedToken.exp > currentTime) {
           setIsAuthenticated(true);

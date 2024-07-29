@@ -44,14 +44,14 @@ const Dashboard: React.FC = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const userResponse = await axios.get("/users/me", {
+        const userResponse = await axios.get("/api/auth/me", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         setUsername(userResponse.data.username);
 
-        const tasksResponse = await axios.get("/tasks", {
+        const tasksResponse = await axios.get("/api/tasks", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -71,7 +71,7 @@ const Dashboard: React.FC = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post("/tasks", newTask, {
+      const response = await axios.post("/api/tasks", newTask, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -89,7 +89,7 @@ const Dashboard: React.FC = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.put(`/tasks/${editTask.id}`, editTask, {
+      const response = await axios.put(`/api/tasks/${editTask.id}`, editTask, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -107,7 +107,7 @@ const Dashboard: React.FC = () => {
   const handleDeleteTask = async (id: number) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`/tasks/${id}`, {
+      await axios.delete(`/api/tasks/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
