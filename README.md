@@ -1,6 +1,6 @@
 # Aplicación de Tareas
 
-## Ingresa al siguiente link para ver la aplicaión web en funcionamiento 🚀 [Mis Tareas](http://54.152.5.128:3000/)
+## Ingresa al siguiente link para ver la aplicaión web en funcionamiento 🚀 [Mis Tareas](http://34.207.119.82:3000)
 
 Esta es una aplicación de tareas desarrollada en React que permite a los usuarios crear y actualizar sus tareas de manera sencilla y eficiente.
 
@@ -83,11 +83,12 @@ docker run -d -p 3000:3000 --name task-frontend --restart unless-stopped task-fr
 ```
 
 ### Paso 4: Acceder a la Aplicación
+
 La aplicación estará disponible en http://localhost:3000.
 
 ### Detener y Reiniciar el Contenedor
-Para detener el contenedor:
 
+Para detener el contenedor:
 
 ```sh
 docker stop task-frontend
@@ -108,6 +109,7 @@ docker rm -f react-app
 ```
 
 Para eliminar la imagen:
+
 ```sh
 docker rmi react-app
 ```
